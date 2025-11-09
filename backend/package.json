@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "module": "src/server.ts",
+  "scripts": {
+    "dev": "bun run src/server.ts"
+  },
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "^24.10.0",
+    "tsx": "^4.20.6"
+  },
+  "peerDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@hono/zod-validator": "^0.7.4",
+    "dotenv": "^17.2.3",
+    "drizzle-kit": "^0.31.6",
+    "drizzle-orm": "^0.44.7",
+    "hono": "^4.10.4",
+    "postgres": "^3.4.7",
+    "zod": "^4.1.12"
+  }
+}

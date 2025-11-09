@@ -13,3 +13,4 @@
 - As a user, I want to copy and share the generated link instantly with anyone (no sign-in required).
 - As a recipient, I want to open that link and see a simple, readable layout of titles, subtext, and URLs.
 - As a recipient, I want to open each link directly from that shared page.
+- Add light/dark mode ( optional )

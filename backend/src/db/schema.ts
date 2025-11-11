@@ -3,7 +3,7 @@ import { pgTable, uuid, text, varchar, timestamp } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import { sql } from "drizzle-orm";
 
-export const bundlesTable = pgTable("bundles", {
+export const bundleTable = pgTable("bundle", {
   id: uuid("id").defaultRandom().primaryKey(),
   title: varchar("title", { length: 255 }),
   slug: varchar("slug", { length: 120 }).notNull().unique(),
@@ -22,7 +22,7 @@ export const linksTable = pgTable("links", {
   note: text("note"),
   bundleId: uuid("bundle_id")
     .notNull()
-    .references(() => bundlesTable.id, { onDelete: "cascade" }),
+    .references(() => bundleTable.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .notNull()
@@ -30,13 +30,13 @@ export const linksTable = pgTable("links", {
     .$onUpdateFn(() => sql`now()`),
 });
 
-export const bundleRelations = relations(bundlesTable, ({ many }) => ({
+export const bundleRelations = relations(bundleTable, ({ many }) => ({
   links: many(linksTable),
 }));
 
 export const linkRelations = relations(linksTable, ({ one }) => ({
-  bundle: one(bundlesTable, {
+  bundle: one(bundleTable, {
     fields: [linksTable.bundleId],
-    references: [bundlesTable.id],
+    references: [bundleTable.id],
   }),
 }));

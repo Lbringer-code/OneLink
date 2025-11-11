@@ -8,6 +8,7 @@ export const bundlesTable = pgTable("bundles", {
   title: varchar("title", { length: 255 }),
   slug: varchar("slug", { length: 120 }).notNull().unique(),
   publicUrl: text("public_url"),
+  adminToken: uuid("admin_token").defaultRandom().notNull().unique(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at")
     .notNull()

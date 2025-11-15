@@ -1,7 +1,6 @@
 // schema.ts (Drizzle + PostgreSQL)
 import { pgTable, uuid, text, varchar, timestamp } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
-import { sql } from "drizzle-orm";
 
 export const bundleTable = pgTable("bundle", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -13,13 +12,14 @@ export const bundleTable = pgTable("bundle", {
   updatedAt: timestamp("updated_at")
     .notNull()
     .defaultNow()
-    .$onUpdateFn(() => sql`now()`),
+    .$onUpdateFn(() => new Date()),
 });
 
 export const linksTable = pgTable("links", {
   id: uuid("id").defaultRandom().primaryKey(),
   url: text("url").notNull(),
   note: text("note"),
+  label: varchar("label", { length: 255 }),
   bundleId: uuid("bundle_id")
     .notNull()
     .references(() => bundleTable.id, { onDelete: "cascade" }),
@@ -27,7 +27,7 @@ export const linksTable = pgTable("links", {
   updatedAt: timestamp("updated_at")
     .notNull()
     .defaultNow()
-    .$onUpdateFn(() => sql`now()`),
+    .$onUpdateFn(() => new Date()),
 });
 
 export const bundleRelations = relations(bundleTable, ({ many }) => ({
